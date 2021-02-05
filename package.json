@@ -1,0 +1,19 @@
+{
+  "name": "irumin-bot",
+  "version": "0.8",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "@discordjs/opus": "*",
+    "discord.js": "^12.x",
+    "node-opus": "*",
+    "simple-youtube-api": "*",
+    "soundcloud-downloader": "*",
+    "youtube-search": "*",
+    "ytdl-core": "*",
+    "ytdl-core-discord": "*"
+  },
+  "devDependencies": {},
+  "author": "Bruno Americo",
+  "license": "ISC"
+}
