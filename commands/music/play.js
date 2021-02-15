@@ -26,8 +26,11 @@ module.exports = {
     //DISCORD VALIDATIONS
     let channel = message.member.voice.channel;
     
-    if(!channel)
+    if(!channel) {
       channel = message.guild.channels.cache.find(channel => channel.id === botConfig.MUSICROOM_ID);
+      if (!channel)
+        return message.channel.send(`User is not in a voice channel and bot's music room does not exist.`).catch(console.error)
+    }
 
     const serverQueue = message.client.queue.get(message.guild.id);
 
@@ -41,7 +44,7 @@ module.exports = {
     
     if (!args.length)
       return message.channel.send(botMsg.emptyCommand(message.member.id)).catch(console.error);
-    
+
     const permissions = channel.permissionsFor(message.client.user);
     if (!permissions.has("CONNECT") || !permissions.has("SPEAK"))
       return message.channel.send(botMsg.botPermissions()).catch(console.error);
