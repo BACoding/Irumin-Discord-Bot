@@ -39,6 +39,11 @@ let getCommands = (dir) => {
 }
 getCommands(commandsPath);
 
+let getEmojiOrFallback = (message, emojiIdentifier, fallback) => {
+  let {name,id} = /<:(?<name>[^:]+):(?<id>[^:]+)/.exec(emojiIdentifier).groups;
+  return message.guild.emojis.cache.find(e => e.id === id || e.name === name) || fallback;
+}
+
 client.on(`message`, async (message) => {
   if (message.author.bot) return;
   if (!message.guild) return;
@@ -54,7 +59,7 @@ client.on(`message`, async (message) => {
   const command = client.commands.get(commandName) || client.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName));
   
   try {
-    message.react(botConfig.IRUMIN_EMOJIS.IRUMIN_BOT);
+    message.react(getEmojiOrFallback(message, botConfig.IRUMIN_EMOJIS.IRUMIN_BOT, '🤖'));
     command.execute(message, args);
 
     if(botConfig.CLEAR_USER_MSG)
