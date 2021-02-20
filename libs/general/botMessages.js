@@ -10,8 +10,8 @@ const { IRUMIN_EMOJIS } = require("../../config/config.json");
 //[message.client.user.avatarURL()] GIVES YOU BOT AVATAR;
 
 module.exports = {
-  invalidCommand() {
-    return embedMessage(`INVALID COMMAND`, `That command doesn't exist. Check !help for a list of the available commands.`)
+  invalidCommand(commandName) {
+    return embedMessage(`INVALID COMMAND`, `Command \`${commandName}\` doesn't exist. Check !help for a list of the available commands.`)
   },
   botPermissions() {
     return embedMessage(`Hellooo?`, `Knock knock... I don't have enough permissions <('.'<)`)
