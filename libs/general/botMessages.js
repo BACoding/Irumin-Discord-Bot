@@ -41,11 +41,6 @@ module.exports = {
     return embedMessage(`SHOW'S OVER`, `You're all free now!`, ``, ``, `${bot.username}`, bot.avatarURL());
   },
   messagesDeleted(message, msgCleaned) {
-    let qtyString = 'messages';
-
-    if(msgCleaned === 1)
-      qtyString = 'message';
-
-    return embedMessage(`PURGE`, `something something just obliterated ${msgCleaned} ${qtyString}`)
+    return embedMessage(`PURGE`, `something something just obliterated ${msgCleaned} message${msgCleaned === 1 ? '' : 's'}`)
   }
 }
