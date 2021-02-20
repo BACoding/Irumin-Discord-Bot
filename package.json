@@ -4,15 +4,17 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
-    "node": ">=12.x",
     "@discordjs/opus": "*",
     "discord.js": "^12.x",
+    "node": ">=12.x",
     "simple-youtube-api": "*",
     "soundcloud-downloader": "*",
-    "youtube-dl": "*",
     "ytdl-core-discord": "*"
   },
   "devDependencies": {},
+  "scripts": {
+    "start": "node main.js"
+  },
   "author": "Bruno Americo",
   "license": "ISC"
 }
