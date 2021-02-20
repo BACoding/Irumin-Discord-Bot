@@ -18,6 +18,7 @@ module.exports = {
         fields = [fields];
 
       fields.forEach(function (field){
+        if (!field.value) return;
         embedMsg.addField(field.name.toUpperCase(), field.value.join(' '), field.inline);
       });
     }
