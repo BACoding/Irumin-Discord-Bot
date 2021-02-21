@@ -3,10 +3,12 @@
   "version": "0.8",
   "description": "",
   "main": "main.js",
+  "engines": {
+    "node": ">=12.x"
+  },
   "dependencies": {
     "@discordjs/opus": "*",
     "discord.js": "^12.x",
-    "node": ">=12.x",
     "simple-youtube-api": "*",
     "soundcloud-downloader": "*",
     "ytdl-core-discord": "*"
