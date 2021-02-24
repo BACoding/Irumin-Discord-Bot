@@ -1,53 +1,30 @@
 const { TOKEN } = require(`./config/auth.json`);
 const {
-  COMMANDFOLDER='commands',
   PREFIX='!',
   IRUMIN_EMOJIS={},
   CLEAR_USER_MSG=true
 } = require('./config/config.json');
 const botMsg = require("./libs/general/botMessages");
-const { readdirSync, statSync } = require(`fs`);
-const { join } = require(`path`);
-const { Client, Collection } = require(`discord.js`);
+const { Client } = require(`discord.js`);
+const killBot = require('./libs/general/killBot');
+const loadCommands = require('./libs/general/loadCommands');
 
-const COMMAND_NAMES = {};
-
-const commandsPath = join(__dirname, COMMANDFOLDER);
-const emojiIdRegex = /(?:<:)(?<name>[^:]+):?(?<id>[^:]+)?/;
+const emojiIdRegex = /(?:<:)(?<animated>a:)?(?<name>[^:]+):?(?<id>[^:]+)?/;
 
 //------------------------
 //BOT INITIALIZATION
 const client = new Client({ disableMentions: `everyone` });
 client.login(TOKEN);
-client.commands = new Collection();
 client.prefix = PREFIX;
 client.queue = new Map();
 
 client.on(`ready`, () => {
+  loadCommands(client);
   console.log(`${client.user.username} bot is ready!`);
   client.user.setActivity(`with her hair`);
 });
 client.on(`warn`, (info) => console.log(info));
 client.on(`error`, console.error);
-
-//------------------------
-//IMPORT COMMAND
-let getCommands = (dir) => {
-  readdirSync(dir).forEach(function(file) {
-    let filePath = join(dir, file);
-    if (statSync(filePath).isDirectory())
-      return getCommands(filePath);
-
-    if (file.endsWith(`.js`)) {
-      let command = require(filePath);
-      client.commands.set(command.name, command);
-      COMMAND_NAMES[command.name] = command.name;
-      if (Array.isArray(command.aliases))
-        command.aliases.forEach(a => COMMAND_NAMES[a] = command.name);
-    }
-  });
-}
-getCommands(commandsPath);
 
 const getEmojiOrFallback = (message, key='🤖') => {
   if (!message || !key || !(key in IRUMIN_EMOJIS))
@@ -76,13 +53,14 @@ client.on(`message`, async (message) => {
 
   const args = message.content.trim().slice(PREFIX.length).split(/ +/);
   const commandName = args.shift().toLowerCase();
-  if (!(commandName in COMMAND_NAMES) || !COMMAND_NAMES[commandName]) {
+  const command = client.commands.find(cmd =>
+    commandName === cmd.name.toLowerCase() ||
+    (cmd.aliases && cmd.aliases.includes(commandName)));
+
+  if (!command) {
     message.channel.send(botMsg.invalidCommand(commandName)).catch(console.error);
     return;
   }
-  const command = client.commands.find((cmd) =>
-    commandName === cmd.name ||
-    (cmd.aliases && cmd.aliases.includes(commandName)));
 
   try {
     command.execute(message, args);
