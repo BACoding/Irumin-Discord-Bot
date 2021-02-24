@@ -2,7 +2,7 @@ const { embedMessage } = require("../../libs/general/embedMessage");
 
 module.exports = {
   name: "slap",
-  aliases: ["sl"],
+  aliases: ["sl", '🖐️'],
   category: "messages",
   description: "Slap your enemies like never before! You can even combo multiple enemies unlike Strive! \n\n **COMMAND LIST:** \n \`!slap @username\` \`!slap @username @username\`",
   execute(message) {
