@@ -16,6 +16,9 @@ module.exports = {
   botPermissions() {
     return embedMessage(`Hellooo?`, `Knock knock... I don't have enough permissions <('.'<)`)
   },
+  authorPermissions() {
+    return embedMessage(`Iyaaa`, `Yametekudastop, you can't do that ☆⌒(>。<)`)
+  },
   userActivity(users) {
     return embedMessage(`MIA`, `I don't see you anywhere <@${users}>`)
   },
@@ -42,5 +45,8 @@ module.exports = {
   },
   messagesDeleted(message, msgCleaned) {
     return embedMessage(`PURGE`, `something something just obliterated ${msgCleaned} message${msgCleaned === 1 ? '' : 's'}`)
+  },
+  goodbye() {
+    return embedMessage(`JA NE`, ':wave:')
   }
 }
