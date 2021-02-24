@@ -12,12 +12,21 @@ function loadCommands(client) {
   if (!client || !(client instanceof Client)) return false;
 
   if (!client.commands) client.commands = new Collection();
+  let customAliases;
+  try {
+    delete require.cache['../../config/customAlias.json'];
+    customAliases = require('../../config/customAlias.json');
+  } catch (e) { customAliases = {}; };
 
   recursiveRequire(COMMANDFOLDER).forEach(commandPath => {
     try {
       delete require.cache[path.join(IRUMIN_ROOT, commandPath)];
       let command = require(path.join(IRUMIN_ROOT, commandPath));
       client.commands.set(command.name, command);
+      if (customAliases[command.name]) {
+        if (!Array.isArray(command.aliases)) command.aliases = [];
+        command.aliases.push(...customAliases[command.name]);
+      }
     } catch {
       console.error(`Failed loading command ${commandPath}`);
     }
