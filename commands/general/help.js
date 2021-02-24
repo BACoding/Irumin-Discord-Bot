@@ -1,6 +1,7 @@
 const { embedMessage } = require("../../libs/general/embedMessage");
 const { PREFIX, IRUMIN_CHA } = require("../../config/config.json");
 const { Message } = require('discord.js');
+const emojiIdRegex = /(?:<:)(?<animated>a:)?(?<name>[^:]+):?(?<id>[^:]+)?/;
 
 /**
  * @typedef Command
@@ -59,7 +60,10 @@ module.exports = {
     } else {
       description = command.description;
       if (Array.isArray(command.aliases) && command.aliases.length)
-        fields.push({name: 'Aliases', value: command.aliases.map(a => `\`${PREFIX}${a}\``), inline: false});
+        fields.push({
+          name: 'Aliases',
+          value: command.aliases.map(a => emojiIdRegex.test(a) ? `\`${PREFIX}\`${a}` : `\`${PREFIX}${a}\``),
+          inline: false});
     }
 
     return message.channel.send(embedMessage(title, description, fields, image, footerText, footerImage));
