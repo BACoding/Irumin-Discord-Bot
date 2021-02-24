@@ -57,7 +57,7 @@ module.exports = {
       description = "Eh? I can't find that anywhere... Are you sure that exists or do you need \`!help\`?";
 
     } else {
-      console.log(command.aliases);
+      description = command.description;
       if (Array.isArray(command.aliases) && command.aliases.length)
         fields.push({name: 'Aliases', value: command.aliases.map(a => `\`${PREFIX}${a}\``), inline: false});
     }
