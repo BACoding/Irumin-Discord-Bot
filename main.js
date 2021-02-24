@@ -76,3 +76,5 @@ client.on(`message`, async (message) => {
 
 // Ctrl+C handling (kill the bot gracefully)
 process.on('SIGINT', () => killBot(client));
+// handles `kill` or VSCode Debug Runner
+process.on('SIGTERM', () => killBot(client));
