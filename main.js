@@ -73,3 +73,6 @@ client.on(`message`, async (message) => {
       message.delete({timeout:10000}).catch(console.error);
   }
 });
+
+// Ctrl+C handling (kill the bot gracefully)
+process.on('SIGINT', () => killBot(client));
