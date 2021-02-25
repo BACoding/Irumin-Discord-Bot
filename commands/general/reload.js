@@ -1,5 +1,4 @@
 const { authorPermissions } = require("../../libs/general/botMessages");
-const { OWNER_ID } = require('../../config/auth.json');
 const { Message } = require('discord.js')
 const loadCommands = require('../../libs/general/loadCommands');
 
@@ -12,7 +11,7 @@ module.exports = {
    * @param {Message} message
    */
   execute(message) {
-    if (message.author.id !== OWNER_ID) {
+    if (message.author.id !== message.guild.owner.id) {
       message.channel.send(authorPermissions());
       return;
     }
