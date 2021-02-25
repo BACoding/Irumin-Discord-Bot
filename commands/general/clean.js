@@ -19,9 +19,14 @@ module.exports = {
     .then(messages => messages.filter(msg => msg.deletable && msg.author.id === me.id))
     .then(ownMsgs => {
       if (channel.permissionsFor(me).has('MANAGE_MESSAGES'))
-        return channel.bulkDelete(ownMsgs).then(d => d.size);
-      return Promise.all(ownMsgs.map(msg => msg.delete())).then(d => d.length);
+        return channel.bulkDelete(ownMsgs);
+      return Promise.all(ownMsgs.map(msg => msg.delete()));
     })
-    .then(deleted => channel.send(botMsg.messagesDeleted(message.member.id, deleted)));
+    .then(deleted => {
+      let bulk = deleted instanceof discord.Collection;
+      let numDeleted = bulk ? deleted.size : deleted.length;
+      channel.send(botMsg.messagesDeleted(message.member.id, numDeleted, bulk))
+        .then((msg => { if (msg) return msg.delete({ timeout:5000 }) }))
+    });
   }
 };

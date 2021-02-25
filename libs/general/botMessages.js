@@ -43,8 +43,8 @@ module.exports = {
   queueFinish(bot) {
     return embedMessage(`SHOW'S OVER`, `You're all free now!`, ``, ``, `${bot.username}`, bot.avatarURL());
   },
-  messagesDeleted(message, msgCleaned) {
-    return embedMessage(`PURGE`, `something something just obliterated ${msgCleaned} message${msgCleaned === 1 ? '' : 's'}`)
+  messagesDeleted(message, msgCleaned, bulk) {
+    return embedMessage(`PURGE`, `something something just obliterated ${msgCleaned} message${msgCleaned === 1 ? '' : 's'} ${bulk ? 'all at once' : 'one by one'}`)
   },
   goodbye() {
     return embedMessage(`JA NE`, ':wave:')
