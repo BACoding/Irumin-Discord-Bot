@@ -1,13 +1,11 @@
-const { TOKEN } = require(`./config/auth.json`);
-const {
-  PREFIX='!',
-  IRUMIN_EMOJIS={},
-  CLEAR_USER_MSG=true
-} = require('./config/config.json');
+const { Client } = require('discord.js');
+const requireOrFallback = require('./libs/general/require-or-fallback');
 const botMsg = require("./libs/general/botMessages");
-const { Client } = require(`discord.js`);
 const killBot = require('./libs/general/killBot');
 const loadCommands = require('./libs/general/loadCommands');
+
+const { TOKEN } = requireOrFallback('./config/auth.json', './config/auth_example.json');
+const { PREFIX, IRUMIN_EMOJIS, CLEAR_USER_MSG } = requireOrFallback('./config/config.json', './config/config.example.json');
 
 const emojiIdRegex = /(?:<:)(?<animated>a:)?(?<name>[^:]+):?(?<id>[^:]+)?/;
 
