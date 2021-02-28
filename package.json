@@ -13,7 +13,9 @@
     "soundcloud-downloader": "*",
     "ytdl-core-discord": "*"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "editorconfig": "*"
+  },
   "scripts": {
     "start": "node main.js"
   },
