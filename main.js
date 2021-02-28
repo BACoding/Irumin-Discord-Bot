@@ -2,7 +2,7 @@ const { Client } = require('discord.js');
 const requireOrFallback = require('./libs/general/require-or-fallback');
 const botMsg = require("./libs/general/botMessages");
 const killBot = require('./libs/general/killBot');
-const loadCommands = require('./libs/general/loadCommands');
+const { loadCommands, findCommand } = require('./libs/general/loadCommands');
 const { getEmojiOrFallback } = require('./libs/general/emojiUtils');
 
 const { TOKEN } = requireOrFallback('./config/auth.json', './config/auth_example.json');
@@ -34,10 +34,8 @@ client.on(`message`, async (message) => {
   if (!String(message.content).trim().startsWith(PREFIX)) return;
 
   const args = message.content.trim().slice(PREFIX.length).split(/ +/);
-  const commandName = args.shift().toLowerCase();
-  const command = client.commands.find(cmd =>
-    commandName === cmd.name.toLowerCase() ||
-    (cmd.aliases && cmd.aliases.includes(commandName)));
+  const commandName = args.shift();
+  const command = findCommand(client, commandName);
 
   if (!command) {
     message.channel.send(botMsg.invalidCommand(commandName)).catch(console.error);
@@ -45,7 +43,7 @@ client.on(`message`, async (message) => {
   }
 
   try {
-    command.execute(message, args);
+    command.execute(message, args.slice());
     message.react(getEmojiOrFallback(message, '🤖'));
   } catch (error) {
     console.log(error);

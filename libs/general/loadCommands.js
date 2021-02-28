@@ -35,6 +35,29 @@ function loadCommands(client) {
   return true;
 }
 
+/**
+ * Find Command using name or alias
+ * @param {Client} client
+ * @param {string} commandName
+ * @returns {import('../../commands/general/help').Command|null}
+ */
+function findCommand (client, commandName) {
+  if (!(client instanceof Client) || !client.commands || typeof commandName !== 'string') return null;
+
+  return client.commands.find(cmd =>
+    commandName === cmd.name ||
+    commandName.toLowerCase() === cmd.name.toLowerCase()) ||
+    findCommandAlias(client, commandName);
+}
+
+function findCommandAlias (client, aliasName) {
+  if (!(client instanceof Client) || !client.commands || typeof aliasName !== 'string') return null;
+
+  return client.commands.find(cmd =>
+    Array.isArray(cmd.aliases) &&
+    cmd.aliases.some(a => a === aliasName || a.toLowerCase() === aliasName.toLowerCase()));
+}
+
 function recursiveRequire(baseDirectory=COMMANDFOLDER, pattern='.+\.js') {
   let root = path.join(IRUMIN_ROOT, baseDirectory)
   return fs.readdirSync(root)
@@ -49,4 +72,4 @@ function recursiveRequire(baseDirectory=COMMANDFOLDER, pattern='.+\.js') {
     }, [])
 }
 
-module.exports = loadCommands;
+module.exports = { loadCommands, findCommand, findCommandAlias };

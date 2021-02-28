@@ -1,6 +1,6 @@
 const { authorPermissions } = require("../../libs/general/botMessages");
 const { Message } = require('discord.js')
-const loadCommands = require('../../libs/general/loadCommands');
+const { loadCommands }  = require('../../libs/general/loadCommands');
 
 module.exports = {
   name: "reload",

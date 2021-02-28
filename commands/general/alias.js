@@ -2,6 +2,9 @@ const { Message } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const { codifyCommand } = require('../../libs/general/emojiUtils');
+const { findCommand, findCommandAlias } = require('../../libs/general/loadCommands');
+
+const help = require('./help');
 
 module.exports = {
   name: "alias",
@@ -11,16 +14,16 @@ module.exports = {
   /**
    * @param {Message} message
    */
-  execute(message, args) {
+  execute(message, [command, alias]=[]) {
+    if (!command) return help.execute(message, [this.name]);
+
     const prefix = message.client.prefix;
-    let [command, alias] = args.slice(0, 2).map(a => String(a).toLowerCase());
-    let existingCommand = message.client.commands.get(command);
+    let existingCommand = findCommand(message.client, command);
     if (!existingCommand) {
       message.channel.send(`\`${prefix}${command}\` does not exist`);
       return;
     }
-    let existingAliasCommand = message.client.commands.find(cmd =>
-      Array.isArray(cmd.aliases) && cmd.aliases.includes(alias));
+    let existingAliasCommand = findCommandAlias(message.client, alias);
     if (existingAliasCommand) {
       message.channel.send(`\`${prefix}${existingAliasCommand.name}\` already uses alias ${codifyCommand(`${prefix}${alias}`)}`);
       return;

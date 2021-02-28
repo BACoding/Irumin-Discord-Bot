@@ -1,6 +1,7 @@
 const { embedMessage } = require("../../libs/general/embedMessage");
 const { PREFIX, IRUMIN_CHA } = require("../../config/config.json");
 const { Message } = require('discord.js');
+const { findCommand } = require('../../libs/general/loadCommands');
 const { codifyCommand } = require('../../libs/general/emojiUtils');
 
 /**
@@ -19,7 +20,7 @@ module.exports = {
   name: "help",
   aliases: ["h", '?'],
   category: "general",
-  description: "",
+  description: "Get help on available commands to use with the bot, or help with a specific command/alias.",
   /**
    * @param {Message} message
    * @param {string[]} args
@@ -29,15 +30,16 @@ module.exports = {
      * @type {Command[]}
      */
     let commands = message.client.commands.array();
-    let subject = Array.isArray(args) && args.length ? args.shift() : null;
-    let command = commands.find(e => e.name === subject || e.aliases.includes(subject));
+    let subject = args?.shift() ?? '';
+    let command = findCommand(message.client, subject);
 
-    let title = 'IRUMIN | HOW TO USE' + (!command ? '' : `[ ${PREFIX+command.name.toUpperCase()} ]`),
-        description = 'Try typing `!help [command]` for more info.',
-        fields = [],
-        image = '',
-        footerText = 'IRUMIN v0.8',
-        footerImage = message.client.user.avatarURL();
+    let title = `${message.client.user.username.toUpperCase()} | HOW TO USE` +
+      (!command ? '' : `[ ${PREFIX+command.name.toUpperCase()} ]`),
+      description = 'Try typing `!help [command]` for more info.',
+      fields = [],
+      image = '',
+      footerText = 'IRUMIN v0.8',
+      footerImage = message.client.user.avatarURL();
 
 
     if (!subject) {
