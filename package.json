@@ -3,16 +3,22 @@
   "version": "0.8",
   "description": "",
   "main": "main.js",
+  "engines": {
+    "node": ">=14.x"
+  },
   "dependencies": {
-    "node": ">=12.x",
     "@discordjs/opus": "*",
     "discord.js": "^12.x",
     "simple-youtube-api": "*",
     "soundcloud-downloader": "*",
-    "youtube-dl": "*",
     "ytdl-core-discord": "*"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "editorconfig": "*"
+  },
+  "scripts": {
+    "start": "node main.js"
+  },
   "author": "Bruno Americo",
   "license": "ISC"
 }

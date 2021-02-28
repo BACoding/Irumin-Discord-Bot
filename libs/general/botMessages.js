@@ -10,11 +10,14 @@ const { IRUMIN_EMOJIS } = require("../../config/config.json");
 //[message.client.user.avatarURL()] GIVES YOU BOT AVATAR;
 
 module.exports = {
-  invalidCommand() {
-    return embedMessage(`INVALID COMMAND`, `That command doesn't exist. Check !help for a list of the available commands.`)
+  invalidCommand(commandName) {
+    return embedMessage(`INVALID COMMAND`, `Command \`${commandName}\` doesn't exist. Check !help for a list of the available commands.`)
   },
   botPermissions() {
     return embedMessage(`Hellooo?`, `Knock knock... I don't have enough permissions <('.'<)`)
+  },
+  authorPermissions() {
+    return embedMessage(`Iyaaa`, `Yametekudastop, you can't do that ☆⌒(>。<)`)
   },
   userActivity(users) {
     return embedMessage(`MIA`, `I don't see you anywhere <@${users}>`)
@@ -40,12 +43,10 @@ module.exports = {
   queueFinish(bot) {
     return embedMessage(`SHOW'S OVER`, `You're all free now!`, ``, ``, `${bot.username}`, bot.avatarURL());
   },
-  messagesDeleted(message, msgCleaned) {
-    let qtyString = 'messages';
-
-    if(msgCleaned === 1)
-      qtyString = 'message';
-
-    return embedMessage(`PURGE`, `something something just obliterated ${msgCleaned} ${qtyString}`)
+  messagesDeleted(message, msgCleaned, bulk) {
+    return embedMessage(`PURGE`, `something something just obliterated ${msgCleaned} message${msgCleaned === 1 ? '' : 's'} ${bulk ? 'all at once' : 'one by one'}`)
+  },
+  goodbye() {
+    return embedMessage(`JA NE`, ':wave:')
   }
 }

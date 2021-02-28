@@ -1,74 +1,60 @@
-const { TOKEN } = require(`./config/auth.json`);
-const botConfig = require(`./config/config.json`);
+const { Client } = require('discord.js');
+const requireOrFallback = require('./libs/general/require-or-fallback');
 const botMsg = require("./libs/general/botMessages");
-const { readdirSync, statSync } = require(`fs`);
-const { join } = require(`path`);
-const { Client, Collection } = require(`discord.js`);
+const killBot = require('./libs/general/killBot');
+const { loadCommands, findCommand } = require('./libs/general/loadCommands');
+const { getEmojiOrFallback } = require('./libs/general/emojiUtils');
 
-const commandsPath = join(__dirname, botConfig.COMMANDFOLDER);
-const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, `\\$&`);
-const whiteSpaceRegex = /^!\S/;
+const { TOKEN } = requireOrFallback('./config/auth.json', './config/auth_example.json');
+const { PREFIX, CLEAR_USER_MSG } = requireOrFallback('./config/config.json', './config/config.example.json');
 
 //------------------------
 //BOT INITIALIZATION
 const client = new Client({ disableMentions: `everyone` });
 client.login(TOKEN);
-client.commands = new Collection();
-client.prefix = botConfig.PREFIX;
+client.prefix = PREFIX;
 client.queue = new Map();
 
 client.on(`ready`, () => {
+  loadCommands(client);
   console.log(`${client.user.username} bot is ready!`);
   client.user.setActivity(`with her hair`);
 });
-client.on(`warn`, (info) => console.log(info));
+client.on(`warn`, console.warn);
 client.on(`error`, console.error);
 
-//------------------------
-//IMPORT COMMAND
-let getCommands = (dir) => {
-  readdirSync(dir).forEach(function(file) {
-    let filePath = dir + `/` + file;
-    if (statSync(filePath).isDirectory()) {
-      getCommands(filePath);
-    } else if(!statSync(filePath).isDirectory() && file.endsWith(`.js`)) {
-      let command = require(filePath);
-      client.commands.set(command.name, command);
-    }
-  });
-}
-getCommands(commandsPath);
-
-let getEmojiOrFallback = (message, emojiIdentifier, fallback) => {
-  let {name,id} = /<:(?<name>[^:]+):(?<id>[^:]+)/.exec(emojiIdentifier).groups;
-  return message.guild.emojis.cache.find(e => e.id === id || e.name === name) || fallback;
-}
-
 client.on(`message`, async (message) => {
+  // ignore bot messages
   if (message.author.bot) return;
+  // ignore own messages
+  if (message.author.id === client.user.id) return;
+  // ignore DMs
   if (!message.guild) return;
+  // ignore unprefixed messages
+  if (!String(message.content).trim().startsWith(PREFIX)) return;
 
-  const prefixRegex = new RegExp(`^(${escapeRegex(botConfig.PREFIX)})\\s*`);
+  const args = message.content.trim().slice(PREFIX.length).split(/ +/);
+  const commandName = args.shift();
+  const command = findCommand(client, commandName);
 
-  if (!prefixRegex.test(message.content)) return;
-  if (!whiteSpaceRegex.test(message.content)) return;
-  
-  const [matchedPrefix] = message.content.match(prefixRegex);
-  const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
-  const commandName = args.shift().toLowerCase();;
-  const command = client.commands.get(commandName) || client.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName));
-  
+  if (!command) {
+    message.channel.send(botMsg.invalidCommand(commandName)).catch(console.error);
+    return;
+  }
+
   try {
-    message.react(getEmojiOrFallback(message, botConfig.IRUMIN_EMOJIS.IRUMIN_BOT, '🤖'));
-    command.execute(message, args);
-
-    if(botConfig.CLEAR_USER_MSG)
-      message.delete({timeout:10000});
+    command.execute(message, args.slice());
+    message.react(getEmojiOrFallback(message, '🤖'));
   } catch (error) {
     console.log(error);
-    message.channel.send(botMsg.invalidCommand(message)).catch(console.error);
-
-    if(botConfig.CLEAR_USER_MSG)
-      message.delete({timeout:10000});
+    message.channel.send(botMsg.invalidCommand(commandName)).catch(console.error);
+  } finally {
+    if(CLEAR_USER_MSG && message.deletable)
+      message.delete({timeout:10000}).catch(console.error);
   }
 });
+
+// Ctrl+C handling (kill the bot gracefully)
+process.on('SIGINT', () => killBot(client));
+// handles `kill` or VSCode Debug Runner
+process.on('SIGTERM', () => killBot(client));

@@ -18,7 +18,7 @@ const youtube = new YouTubeAPI(YOUTUBE_API);
 
 module.exports = {
   name: "play",
-  aliases: ["p"],
+  aliases: ["p", "paly", "toca"],
   category: "music",
   description: `Play description insert! \n\n **COMMAND LIST:** \n \`!play YOUTUBELINK\``,
   async execute(message, args) {
