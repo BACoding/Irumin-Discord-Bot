@@ -18,6 +18,7 @@ module.exports = {
     }
 
     message.channel.send(goodbye())
+      .then(msg => msg.delete({timeout: 3000}))
       .then(() => killBot(message.client));
   }
 };
