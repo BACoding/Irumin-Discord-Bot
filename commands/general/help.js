@@ -1,7 +1,7 @@
 const { embedMessage } = require("../../libs/general/embedMessage");
 const { PREFIX, IRUMIN_CHA } = require("../../config/config.json");
 const { Message } = require('discord.js');
-const emojiIdRegex = /(?:<:)(?<animated>a:)?(?<name>[^:]+):?(?<id>[^:]+)?/;
+const { codifyCommand } = require('../../libs/general/emojiUtils');
 
 /**
  * @typedef Command
@@ -62,7 +62,7 @@ module.exports = {
       if (Array.isArray(command.aliases) && command.aliases.length)
         fields.push({
           name: 'Aliases',
-          value: command.aliases.map(a => emojiIdRegex.test(a) ? `\`${PREFIX}\`${a}` : `\`${PREFIX}${a}\``),
+          value: command.aliases.map(a => codifyCommand(`${PREFIX}${a}`)),
           inline: false});
     }
 

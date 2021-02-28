@@ -3,11 +3,10 @@ const requireOrFallback = require('./libs/general/require-or-fallback');
 const botMsg = require("./libs/general/botMessages");
 const killBot = require('./libs/general/killBot');
 const loadCommands = require('./libs/general/loadCommands');
+const { getEmojiOrFallback } = require('./libs/general/emojiUtils');
 
 const { TOKEN } = requireOrFallback('./config/auth.json', './config/auth_example.json');
-const { PREFIX, IRUMIN_EMOJIS, CLEAR_USER_MSG } = requireOrFallback('./config/config.json', './config/config.example.json');
-
-const emojiIdRegex = /(?:<:)(?<animated>a:)?(?<name>[^:]+):?(?<id>[^:]+)?/;
+const { PREFIX, CLEAR_USER_MSG } = requireOrFallback('./config/config.json', './config/config.example.json');
 
 //------------------------
 //BOT INITIALIZATION
@@ -21,23 +20,8 @@ client.on(`ready`, () => {
   console.log(`${client.user.username} bot is ready!`);
   client.user.setActivity(`with her hair`);
 });
-client.on(`warn`, (info) => console.log(info));
+client.on(`warn`, console.warn);
 client.on(`error`, console.error);
-
-const getEmojiOrFallback = (message, key='🤖') => {
-  if (!message || !key || !(key in IRUMIN_EMOJIS))
-    return key;
-
-  let name = IRUMIN_EMOJIS[key], id;
-  if (emojiIdRegex.test(name)) {
-    let res = emojiIdRegex.exec(name);
-    if (res && res.groups) {
-      name = res.groups.name;
-      id = res.groups.id;
-    }
-  }
-  return message.guild.emojis.cache.find(e => e.id === id || e.name === name) || key;
-}
 
 client.on(`message`, async (message) => {
   // ignore bot messages

@@ -1,6 +1,7 @@
 const { Message } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
+const { codifyCommand } = require('../../libs/general/emojiUtils');
 
 module.exports = {
   name: "alias",
@@ -21,13 +22,13 @@ module.exports = {
     let existingAliasCommand = message.client.commands.find(cmd =>
       Array.isArray(cmd.aliases) && cmd.aliases.includes(alias));
     if (existingAliasCommand) {
-      message.channel.send(`\`${prefix}${existingAliasCommand.name}\` already uses alias \`${prefix}\`${alias}`);
+      message.channel.send(`\`${prefix}${existingAliasCommand.name}\` already uses alias ${codifyCommand(`${prefix}${alias}`)}`);
       return;
     }
 
     existingCommand.aliases.push(alias);
 
-    message.channel.send(`Added alias \`${prefix}\`${alias} to \`${prefix}${command}\``);
+    message.channel.send(`Added alias ${codifyCommand(`${prefix}${alias}`)} to ${codifyCommand(`${prefix}${command}`)}`);
 
     let customAliases;
     try {
