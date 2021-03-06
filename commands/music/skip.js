@@ -10,8 +10,8 @@ module.exports = {
     const queue = message.client.queue.get(message.guild.id);
     if (!queue)
       return message.channel.send(embedMessage(`Let's change things up!`,`Or not... There's nothing playing right now.`)).catch(console.error);
-    
-    if (!musicPermissions(message.member))
+
+    if (!musicPermissions(message))
       return;
 
     queue.playing = true;

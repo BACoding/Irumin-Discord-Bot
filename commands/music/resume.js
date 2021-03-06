@@ -11,8 +11,8 @@ module.exports = {
     const queue = message.client.queue.get(message.guild.id);
     if (!queue)
         return message.channel.send(embedMessage(`We're back!`,`Eh? There's nothing playing ${IRUMIN_TUCC ? IRUMIN_TUCC : ''}`))
-    
-    if (!musicPermissions(message.member))
+
+    if (!musicPermissions(message))
         return;
 
     if (!queue.playing) {

@@ -12,12 +12,12 @@ module.exports = {
     const queue = message.client.queue.get(message.guild.id);
     const { channelID } = member.voice;
     const botChannel = member.guild.voice.channelID;
-    
+
     if (!queue)
         return message.channel.send(embedMessage(`Let's clear everything!`,`There's nothing going on? ${IRUMIN_TUCC ? IRUMIN_TUCC : ''}`))
             .catch(console.error);
 
-    if (!musicPermissions(message.member))
+    if (!musicPermissions(message))
         return;
 
     queue.songs.length = 1;

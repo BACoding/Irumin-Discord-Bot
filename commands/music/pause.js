@@ -13,7 +13,7 @@ module.exports = {
         return message.channel.send(embedMessage(`Let's stop for a second`,`Eh? There's nothing playing ${IRUMIN_TUCC ? IRUMIN_TUCC : ''}`))
             .catch(console.error);
 
-    if (!musicPermissions(message.member))
+    if (!musicPermissions(message))
         return;
 
     if (queue.playing) {
