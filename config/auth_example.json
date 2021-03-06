@@ -2,5 +2,7 @@
     "TOKEN": "",
     "OWNER_ID": "",
     "YOUTUBE_API": "",
-    "SOUNDCLOUD_ID": ""
+    "SOUNDCLOUD_ID": "",
+    "SPOTIFY_CLIENT_ID": "",
+    "SPOTIFY_CLIENT_SECRET": ""
 }
