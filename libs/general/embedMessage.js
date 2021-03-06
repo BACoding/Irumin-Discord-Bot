@@ -29,7 +29,7 @@ module.exports = {
 
     if(footerText)
       embedMsg.setFooter(footerText, footerImage);
-
+    
     return embedMsg;
   }
 };

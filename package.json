@@ -4,12 +4,13 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
-    "node": ">=12.x",
     "@discordjs/opus": "*",
     "discord.js": "^12.x",
+    "node": ">=12.x",
     "simple-youtube-api": "*",
     "soundcloud-downloader": "*",
     "youtube-dl": "*",
+    "ytdl-core": "^4.5.0",
     "ytdl-core-discord": "*"
   },
   "devDependencies": {},

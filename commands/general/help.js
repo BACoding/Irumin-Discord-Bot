@@ -1,5 +1,7 @@
 const { embedMessage } = require("../../libs/general/embedMessage");
-const { PREFIX, IRUMIN_CHA } = require("../../config/config.json");
+const { PREFIX } = require("../../config/config.json");
+const { version } = require("../../package.json");
+const botMsg = require("../../libs/general/botMessages");
 
 module.exports = {
   name: "help",
@@ -30,15 +32,14 @@ module.exports = {
         }
       });
 
-      return message.channel.send(embedMessage(`IRUMIN | HOW TO USE`, `Try typing \`!help [with command]\` for more info.`, helpList, ``, `IRUMIN v0.8`, message.client.user.avatarURL()));
+      return message.channel.send(botMsg.helpMain(message.client.user, helpList, version));
     }else{
       let command = commands.find(e => e.name === args[0] || e.aliases[0] === args[0]);    
 
       if(!command)
-        return message.channel.send(embedMessage(`IRUMIN | HOW TO USE`, `Eh? I can't find that anywhere... Are you sure that exists or do you need \`!help\`?`));
+        return message.channel.send(botMsg.helpError(message.author));
       
-      console.log(command.aliases);
-      return message.channel.send(embedMessage(`IRUMIN | HOW TO USE [ ${PREFIX + command.name.toUpperCase()} ]`, command.description, '', command.image, ``, command.aliases.length >= 1 ? `• You can also use [ ${PREFIX + command.aliases} ]` : ''));
+      return message.channel.send(botMsg.helpCommand(message.author, command, PREFIX));
     }
   }
 };

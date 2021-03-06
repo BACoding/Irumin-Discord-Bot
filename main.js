@@ -63,7 +63,7 @@ client.on(`message`, async (message) => {
     command.execute(message, args);
 
     if(botConfig.CLEAR_USER_MSG)
-      message.delete({timeout:10000});
+      message.delete({timeout:50000});
   } catch (error) {
     console.log(error);
     message.channel.send(botMsg.invalidCommand(message)).catch(console.error);

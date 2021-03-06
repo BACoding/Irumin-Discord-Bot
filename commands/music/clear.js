@@ -10,8 +10,6 @@ module.exports = {
   description: "Clears everything in queue... That's it really \n\n **COMMAND LIST:** \n \`!clear\`",
   execute(message) {
     const queue = message.client.queue.get(message.guild.id);
-    const { channelID } = member.voice;
-    const botChannel = member.guild.voice.channelID;
     
     if (!queue)
         return message.channel.send(embedMessage(`Let's clear everything!`,`There's nothing going on? ${IRUMIN_TUCC ? IRUMIN_TUCC : ''}`))

@@ -4,7 +4,7 @@ const { IRUMIN_TUCC, IRUMIN_SMUG } = require("../../config/config.json");
 
 module.exports = {
   name: "resume",
-  aliases: ["re"],
+  aliases: ["rs"],
   category: "music",
   description: "I'll resume whatever you were listening. It's that simple! \n\n **COMMAND LIST:** \n \`!resume\`",
   async execute(message) {
