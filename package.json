@@ -12,7 +12,8 @@
     "simple-youtube-api": "*",
     "soundcloud-downloader": "*",
     "spotify-web-api-node": "5.0.x",
-    "ytdl-core-discord": "*"
+    "ytdl-core-discord": "*",
+    "node-fetch": "^2.x"
   },
   "devDependencies": {
     "@types/spotify-api": "*",
