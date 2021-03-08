@@ -16,5 +16,6 @@
         "IRUMIN_SWEAT": "<:iruSweat:774053779586285599>",
         "IRUMIN_SMUG": "<:iruSmug:774054469893226507>",
         "IRUMIN_TUCC": "<:iruTucc:774055009960329229>"
-    }
+    },
+    "SYSTEMD_NAME": "irumindev"
 }
