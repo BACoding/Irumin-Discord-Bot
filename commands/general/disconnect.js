@@ -5,7 +5,7 @@ const { OWNER_ID } = require('../../config/auth.json');
 
 module.exports = {
   name: "disconnect",
-  aliases: ["quit", "fuckoff", "kill", "ko"],
+  aliases: ["quit", "fuckoff", "kill", "ko", 'dc'],
   category: "general",
   description: "Closes the bot. Only the guild/bot owner can use this.",
   /**
