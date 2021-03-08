@@ -37,19 +37,13 @@ class SpotifyBackend {
   }
 
   parse(url) {
-    let ret = {
-      type: 'invalid',
-      id: ''
-    };
-    let parsed, urlString = String(url);
+    let urlString = String(url), parsed;
     if (!urlString) return ret;
     if (OPEN_SPOTIFY_RE.test(urlString))
-      parsed = OPEN_SPOTIFY_RE.exec(urlString)?.groups ?? ret;
+      parsed = OPEN_SPOTIFY_RE.exec(urlString)?.groups;
     if (SPOTIFY_URI_RE.test(urlString))
-      parsed = SPOTIFY_URI_RE.exec(urlString)?.groups ?? ret;
-    ret.type = parsed.type;
-    ret.id = parsed.id;
-    return ret;
+      parsed = SPOTIFY_URI_RE.exec(urlString)?.groups;
+    return parsed ?? { type: 'invalid', id: '' };
   }
 
   async getAPIResult(type, id) {
