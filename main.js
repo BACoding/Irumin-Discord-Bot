@@ -1,4 +1,4 @@
-const { Client } = require('discord.js');
+const { Client, Intents } = require('discord.js');
 const requireOrFallback = require('./libs/general/require-or-fallback');
 const botMsg = require("./libs/general/botMessages");
 const killBot = require('./libs/general/killBot');
@@ -10,7 +10,8 @@ const { PREFIX, CLEAR_USER_MSG } = requireOrFallback('./config/config.json', './
 
 //------------------------
 //BOT INITIALIZATION
-const client = new Client({ disableMentions: `everyone` });
+const client = new Client({ intents: Intents.NON_PRIVILEGED, disableMentions: 'everyone' });
+// PRIVILEGE = CHECKED
 client.login(TOKEN);
 client.prefix = PREFIX;
 client.queue = new Map();

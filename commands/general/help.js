@@ -41,7 +41,6 @@ module.exports = {
       footerText = 'IRUMIN v0.8',
       footerImage = message.client.user.avatarURL();
 
-
     if (!subject) {
       commands.forEach(item => {
         // ignore itself
