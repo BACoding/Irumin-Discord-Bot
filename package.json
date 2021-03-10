@@ -11,9 +11,11 @@
     "discord.js": "^12.x",
     "simple-youtube-api": "*",
     "soundcloud-downloader": "*",
+    "spotify-web-api-node": "5.0.x",
     "ytdl-core-discord": "*"
   },
   "devDependencies": {
+    "@types/spotify-api": "*",
     "editorconfig": "*"
   },
   "scripts": {
