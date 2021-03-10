@@ -8,12 +8,16 @@
   },
   "dependencies": {
     "@discordjs/opus": "*",
+    "bufferutil": "*",
     "discord.js": "^12.x",
+    "node-fetch": "^2.x",
     "simple-youtube-api": "*",
+    "sodium": "*",
     "soundcloud-downloader": "*",
-    "spotify-web-api-node": "5.0.x",
+    "spotify-web-api-node": "5.x",
+    "utf-8-validate": "*",
     "ytdl-core-discord": "*",
-    "node-fetch": "^2.x"
+    "zlib-sync": "*"
   },
   "devDependencies": {
     "@types/spotify-api": "*",
