@@ -9,7 +9,8 @@
         "program": "${workspaceFolder}/main.js",
         "request": "launch",
         "skipFiles": [
-            "<node_internals>/**"
+            "<node_internals>/**",
+            "${workspaceFolder}/node_modules/**/*.js"
         ],
         "type": "pwa-node"
     },
@@ -22,7 +23,8 @@
       ],
       "runtimeExecutable": "yarn",
       "skipFiles": [
-        "<node_internals>/**"
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**/*.js"
       ],
       "type": "pwa-node",
       "killBehavior": "polite"
@@ -36,7 +38,8 @@
       ],
       "runtimeExecutable": "npm",
       "skipFiles": [
-        "<node_internals>/**"
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**/*.js"
       ],
       "type": "pwa-node",
       "killBehavior": "polite"
