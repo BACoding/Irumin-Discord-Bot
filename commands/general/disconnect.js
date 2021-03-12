@@ -1,6 +1,6 @@
 const { authorPermissions, goodbye } = require("../../libs/general/botMessages");
 const { Message } = require('discord.js')
-const killBot = require('../../libs/general/killBot');
+const { killBot } = require('../../libs/general/killBot');
 const { OWNER_ID } = require('../../config/auth.json');
 
 module.exports = {

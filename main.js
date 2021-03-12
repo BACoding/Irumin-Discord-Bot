@@ -1,6 +1,6 @@
 const { Client, Intents } = require('discord.js');
 const botMsg = require("./libs/general/botMessages");
-const killBot = require('./libs/general/killBot');
+const { killBot } = require('./libs/general/killBot');
 const { loadCommands, findCommand } = require('./libs/general/loadCommands');
 const { getEmojiOrFallback } = require('./libs/general/emojiUtils');
 
