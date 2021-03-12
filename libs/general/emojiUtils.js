@@ -1,10 +1,8 @@
 const { Message } = require("discord.js");
-const requireOrFallback = require("./require-or-fallback");
 
 const emojiIdRegex = /<?(?<animated>a)?:(?<name>[^:]+):(?<id>\d+)?>?/;
 const guildEmojiRegex = /(<a?:[^:]+:\d+>)/;
-const { IRUMIN_EMOJIS } = requireOrFallback('./config/config.json',
-  './config/config.example.json');
+const { IRUMIN_EMOJIS, PREFIX } = require('../../config/config.json');
 
 function parseEmoji (str) {
   const groups = emojiIdRegex.exec(str)?.groups ?? {};

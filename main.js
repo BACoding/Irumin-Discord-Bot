@@ -1,12 +1,11 @@
 const { Client, Intents } = require('discord.js');
-const requireOrFallback = require('./libs/general/require-or-fallback');
 const botMsg = require("./libs/general/botMessages");
 const killBot = require('./libs/general/killBot');
 const { loadCommands, findCommand } = require('./libs/general/loadCommands');
 const { getEmojiOrFallback } = require('./libs/general/emojiUtils');
 
-const { TOKEN } = requireOrFallback('./config/auth.json', './config/auth_example.json');
-const { PREFIX, CLEAR_USER_MSG } = requireOrFallback('./config/config.json', './config/config.example.json');
+const { TOKEN } = require('./config/auth.json');
+const { PREFIX, CLEAR_USER_MSG } = require('./config/config.json');
 
 //------------------------
 //BOT INITIALIZATION
