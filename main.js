@@ -24,10 +24,10 @@ client.on(`warn`, console.warn);
 client.on(`error`, console.error);
 
 client.on(`message`, async (message) => {
-  // ignore bot messages
-  if (message.author.bot) return;
   // ignore own messages
   if (message.author.id === client.user.id) return;
+  // ignore bot messages
+  if (message.author.bot) return;
   // ignore DMs
   if (!message.guild) return;
   // ignore unprefixed messages
