@@ -13,32 +13,34 @@ module.exports = {
   description: "Create alias for existing command.\n\n**Example**\n`!alias slap 🖐️`",
   /**
    * @param {Message} message
+   * @param {string[]} args
    */
-  execute(message, [command, alias]=[]) {
-    if (!command) return help.execute(message, [this.name]);
+  execute(message, [commandName, alias]=[]) {
+    if (!commandName || !alias) return help.execute(message, [this.name]);
 
     const prefix = message.client.prefix;
-    let existingCommand = findCommand(message.client, command);
-    if (!existingCommand) {
-      message.channel.send(`\`${prefix}${command}\` does not exist`);
-      return;
-    }
-    let existingAliasCommand = findCommandAlias(message.client, alias);
-    if (existingAliasCommand) {
-      message.channel.send(`\`${prefix}${existingAliasCommand.name}\` already uses alias ${codifyCommand(`${prefix}${alias}`)}`);
+    const command = findCommand(message.client, commandName);
+    if (!command) {
+      message.channel.send(`\`${prefix}${commandName}\` does not exist`);
       return;
     }
 
-    existingCommand.aliases.push(alias);
+    const aliasCommand = findCommandAlias(message.client, alias);
+    if (aliasCommand) {
+      message.channel.send(`${codifyCommand(aliasCommand.name)} already uses alias ${codifyCommand(alias)}`);
+      return;
+    }
 
-    message.channel.send(`Added alias ${codifyCommand(`${prefix}${alias}`)} to ${codifyCommand(`${prefix}${command}`)}`);
+    command.aliases.push(alias);
+
+    message.channel.send(`Added alias ${codifyCommand(alias)} to ${codifyCommand(commandName)}`);
 
     let customAliases;
     try {
       customAliases = require('../../config/customAlias.json');
     } catch (e) { customAliases = {}; }
-    if (!customAliases[command]) customAliases[command] = [];
-    customAliases[command].push(alias);
+    if (!customAliases[commandName]) customAliases[commandName] = [];
+    customAliases[commandName].push(alias);
 
     fs.writeFileSync(path.join(__dirname, '../../config/customAlias.json'), JSON.stringify(customAliases));
   }

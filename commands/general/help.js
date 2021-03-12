@@ -63,7 +63,7 @@ module.exports = {
       if (Array.isArray(command.aliases) && command.aliases.length)
         fields.push({
           name: 'Aliases',
-          value: command.aliases.map(a => codifyCommand(`${PREFIX}${a}`)),
+          value: command.aliases.map(alias => codifyCommand(alias)),
           inline: false});
     }
 

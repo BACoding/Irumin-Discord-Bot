@@ -24,7 +24,7 @@
     "editorconfig": "*"
   },
   "scripts": {
-    "start": "node main.js"
+    "start": "node ."
   },
   "author": "Bruno Americo",
   "license": "ISC"

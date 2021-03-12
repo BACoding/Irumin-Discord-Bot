@@ -25,7 +25,7 @@ function getEmojiOrFallback (message, key='🤖') {
 }
 
 function codifyCommand (commandName) {
-  return commandName
+  return PREFIX + commandName
     .split(guildEmojiRegex)
     .filter(s => s !== '')
     .map(s => !guildEmojiRegex.test(s) ? `\`${s}\`` : s)
