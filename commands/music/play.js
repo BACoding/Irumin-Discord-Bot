@@ -1,9 +1,10 @@
 //------------------------
 //IMPORT MAIN DISCORD / YOUTUBE LIBRARIES
 const { Message } = require('discord.js');
-const ytdl = require("ytdl-core");
+const ytdl = require("ytdl-core-discord");
 const YouTubeAPI = require("simple-youtube-api");
 const { SpotifyBackend } = require('../../libs/music/spotify');
+const YoutubeDL = require('../../libs/music/youtubedl');
 
 //------------------------
 //IMPORT MAIN CODE LIBRARIES
@@ -16,7 +17,7 @@ const botMsg = require("../../libs/general/botMessages");
 const { MUSICROOM_ID, CHECK_USER_VC, DEFAULT_VOLUME, PREFIX } = require("../../config/config.json");
 const { YOUTUBE_API } = require("../../config/auth.json");
 
-const youtube = new YouTubeAPI(YOUTUBE_API);
+const youtube = YOUTUBE_API ? new YouTubeAPI(YOUTUBE_API) : YoutubeDL;
 const spotify = new SpotifyBackend();
 
 module.exports = {
@@ -133,6 +134,11 @@ module.exports = {
         console.log('getting youtube url failed:', error)
         return message.channel.send(botMsg.invalidUrl(message.member.id)).catch(console.error);
       }
+    } else {
+      songInfo = await YoutubeDL.getInfo(url);
+      song.title = songInfo.title;
+      song.url = songInfo.videoDetails?.video_url;
+      song.duration = songInfo.duration;
     }
 
     if (!song || !song.url) {

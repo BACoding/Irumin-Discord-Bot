@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const { play } = require("./playFunc");
-const ytdl = require("ytdl-core");
+const ytdl = require("ytdl-core-discord");
 const YouTubeAPI = require("simple-youtube-api");
 
 const { DEFAULT_VOLUME, MAX_PLAYLIST_SIZE } = require("../../config/config.json");

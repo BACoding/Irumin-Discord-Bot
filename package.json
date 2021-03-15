@@ -10,6 +10,7 @@
     "@discordjs/opus": "*",
     "bufferutil": "*",
     "discord.js": "^12.x",
+    "execa": "^5.x",
     "node-fetch": "^2.x",
     "simple-youtube-api": "*",
     "sodium": "*",

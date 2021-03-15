@@ -23,7 +23,7 @@ module.exports = {
         queue.songs.push(queue.songs.shift());
       }
     } else {
-      queue.songs = queue.songs.slice(args[0] - 2);
+      queue.songs = queue.songs?.slice(args[0] - 2);
     }
 
     queue.connection.dispatcher.end();
