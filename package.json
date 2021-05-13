@@ -10,14 +10,16 @@
     "@discordjs/opus": "*",
     "bufferutil": "*",
     "discord.js": "^12.x",
+    "execa": "^5.x",
+    "magnet-uri": "^6.2.0",
     "node-fetch": "^2.x",
     "simple-youtube-api": "*",
     "sodium": "*",
     "soundcloud-downloader": "*",
     "spotify-web-api-node": "5.x",
     "utf-8-validate": "*",
-    "ytdl-core-discord": "*",
-    "zlib-sync": "*"
+    "zlib-sync": "*",
+    "ytdl-core-discord": "*"
   },
   "devDependencies": {
     "@types/spotify-api": "*",
