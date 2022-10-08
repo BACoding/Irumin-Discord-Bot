@@ -5,11 +5,11 @@
   "main": "main.js",
   "dependencies": {
     "@discordjs/opus": "*",
-    "discord.js": "^12.x",
-    "node": ">=12.x",
+    "discord.js": "^14.x",
+    "node": "^16.9.x",
     "simple-youtube-api": "*",
     "soundcloud-downloader": "*",
-    "youtube-dl": "*",
+    "youtube-dl-exec": "*",
     "ytdl-core": "^4.5.0",
     "ytdl-core-discord": "*"
   },
