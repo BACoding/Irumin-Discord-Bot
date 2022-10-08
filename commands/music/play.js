@@ -1,67 +1,62 @@
 //------------------------
 //IMPORT MAIN DISCORD / YOUTUBE LIBRARIES
-const ytdl = require("ytdl-core");
-const YouTubeAPI = require("simple-youtube-api");
+const ytdl = require('ytdl-core');
+const YouTubeAPI = require('simple-youtube-api');
 
 //------------------------
 //IMPORT MAIN CODE LIBRARIES
-const { play } = require("../../libs/music/playFunc");
-const { playlist } = require("../../libs/music/playlistFunc");
-const botMsg = require("../../libs/general/botMessages");
+const { play } = require('../../libs/music/playFunc');
+const { playlist } = require('../../libs/music/playlistFunc');
+const botMsg = require('../../libs/general/botMessages');
 
 //------------------------
 //IMPORT CONFIG
-const botConfig = require("../../config/config.json");
-const { YOUTUBE_API } = require("../../config/auth.json");
+const botConfig = require('../../config/config.json');
+const { YOUTUBE_API } = require('../../config/auth.json');
 
 const youtube = new YouTubeAPI(YOUTUBE_API);
 
 module.exports = {
-  name: "play",
-  aliases: ["p"],
-  category: "music",
-  description: `Play description insert! \n\n **COMMAND LIST:** \n \`!play YOUTUBELINK\``,
+  name: 'play',
+  aliases: ['p'],
+  category: 'music',
+  description: 'Play description insert! \n\n **COMMAND LIST:** \n `!play YOUTUBELINK`',
   async execute(message, args) {
     //------------------------
     //DISCORD VALIDATIONS
     let channel = message.member.voice.channel;
-    
-    if(!channel) {
-      channel = message.guild.channels.cache.find(channel => channel.id === botConfig.MUSICROOM_ID);
-      if (!channel)
-        return message.channel.send(`User is not in a voice channel and bot's music room does not exist.`).catch(console.error)
+
+    if (!channel) {
+      channel = message.guild.channels.cache.find((channel) => channel.id === botConfig.MUSICROOM_ID);
+      if (!channel) return message.channel.send("User is not in a voice channel and bot's music room does not exist.").catch(console.error);
     }
 
     const serverQueue = message.client.queue.get(message.guild.id);
 
-    if(botConfig.CHECK_USER_VC){
-      if (!channel)
-        return message.channel.send(botMsg.userActivity(message.member.id)).catch(console.error);
-      
+    if (botConfig.CHECK_USER_VC) {
+      if (!channel) return message.channel.send(botMsg.userActivity(message.member.id)).catch(console.error);
+
       if (serverQueue && channel !== message.guild.me.voice.channel)
         return message.channel.send(botMsg.userActivity(message.member.id)).catch(console.error);
     }
-    
-    if (!args.length)
-      return message.channel.send(botMsg.emptyCommand(message.member.id)).catch(console.error);
+
+    if (!args.length) return message.channel.send(botMsg.emptyCommand(message.member.id)).catch(console.error);
 
     const permissions = channel.permissionsFor(message.client.user);
-    if (!permissions.has("CONNECT") || !permissions.has("SPEAK"))
-      return message.channel.send(botMsg.botPermissions()).catch(console.error);
-    
+    if (!permissions.has('CONNECT') || !permissions.has('SPEAK')) return message.channel.send(botMsg.botPermissions()).catch(console.error);
+
     //------------------------
     //MUSIC PLAYER INIT
-    const search = args.join(" ");
+    const search = args.join(' ');
     const videoPattern = /^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi;
-    const playlistPattern = /^.*(list=)([^#\&\?]*).*/gi;
+    const playlistPattern = /^.*(list=)([^#&?]*).*/gi;
     const url = args[0];
     const urlValid = videoPattern.test(args[0]);
 
     //------------------------
     //GO TO PLAYLIST "playlistFunc.js" IF A PLAYLIST WAS PROVIDED AS THE URL
-    if (!videoPattern.test(args[0]) && playlistPattern.test(args[0]))
-      return playlist(message, args);
-      //return message.client.commands.get("playlist").execute(message, args);
+    if (!videoPattern.test(args[0]) && playlistPattern.test(args[0])) return playlist(message, args);
+    //return message.client.commands.get("playlist").execute(message, args);
 
     //------------------------
     //START THE QUEUE WITH A SONG OR ADDS SONG TO CURRENT QUEUE
@@ -77,7 +72,7 @@ module.exports = {
 
     let songInfo = null;
     let song = null;
-    
+
     if (urlValid) {
       try {
         songInfo = await ytdl.getInfo(url);
@@ -124,4 +119,4 @@ module.exports = {
       return message.channel.send(botMsg.botError(message.member.id)).catch(console.error);
     }
   }
-}
+};

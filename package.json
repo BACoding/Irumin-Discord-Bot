@@ -9,11 +9,13 @@
     "node": ">=12.x",
     "simple-youtube-api": "*",
     "soundcloud-downloader": "*",
-    "youtube-dl": "*",
+    "youtube-dl-exec": "*",
     "ytdl-core": "^4.5.0",
     "ytdl-core-discord": "*"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^8.25.0"
+  },
   "author": "Bruno Americo",
   "license": "ISC"
 }
