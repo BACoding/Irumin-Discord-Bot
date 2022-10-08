@@ -8,13 +8,14 @@
   },
   "dependencies": {
     "@discordjs/opus": "*",
-    "discord.js": "^12.x",
+    "discord.js": "^14.x",
     "simple-youtube-api": "*",
     "soundcloud-downloader": "*",
     "ytdl-core-discord": "*"
   },
   "devDependencies": {
-    "editorconfig": "*"
+    "editorconfig": "*",
+    "eslint": "^8.25.0"
   },
   "scripts": {
     "start": "node main.js"

@@ -1,12 +1,18 @@
-const { Client } = require('discord.js');
-const requireOrFallback = require('./libs/general/require-or-fallback');
-const botMsg = require("./libs/general/botMessages");
-const killBot = require('./libs/general/killBot');
-const { loadCommands, findCommand } = require('./libs/general/loadCommands');
-const { getEmojiOrFallback } = require('./libs/general/emojiUtils');
+const { Client } = require(`discord.js`);
+const requireOrFallback = require(`./libs/general/require-or-fallback`);
+const botMsg = require(`./libs/general/botMessages`);
+const killBot = require(`./libs/general/killBot`);
+const { loadCommands, findCommand } = require(`./libs/general/loadCommands`);
+const { getEmojiOrFallback } = require(`./libs/general/emojiUtils`);
 
-const { TOKEN } = requireOrFallback('./config/auth.json', './config/auth_example.json');
-const { PREFIX, CLEAR_USER_MSG } = requireOrFallback('./config/config.json', './config/config.example.json');
+const { TOKEN } = requireOrFallback(
+  `./config/auth.json`,
+  `./config/auth_example.json`
+);
+const { PREFIX, CLEAR_USER_MSG } = requireOrFallback(
+  `./config/config.json`,
+  `./config/config.example.json`
+);
 
 //------------------------
 //BOT INITIALIZATION
@@ -38,23 +44,27 @@ client.on(`message`, async (message) => {
   const command = findCommand(client, commandName);
 
   if (!command) {
-    message.channel.send(botMsg.invalidCommand(commandName)).catch(console.error);
+    message.channel
+      .send(botMsg.invalidCommand(commandName))
+      .catch(console.error);
     return;
   }
 
   try {
     command.execute(message, args.slice());
-    message.react(getEmojiOrFallback(message, '🤖'));
+    message.react(getEmojiOrFallback(message, `🤖`));
   } catch (error) {
     console.log(error);
-    message.channel.send(botMsg.invalidCommand(commandName)).catch(console.error);
+    message.channel
+      .send(botMsg.invalidCommand(commandName))
+      .catch(console.error);
   } finally {
-    if(CLEAR_USER_MSG && message.deletable)
-      message.delete({timeout:10000}).catch(console.error);
+    if (CLEAR_USER_MSG && message.deletable)
+      message.delete({ timeout: 10000 }).catch(console.error);
   }
 });
 
 // Ctrl+C handling (kill the bot gracefully)
-process.on('SIGINT', () => killBot(client));
+process.on(`SIGINT`, () => killBot(client));
 // handles `kill` or VSCode Debug Runner
-process.on('SIGTERM', () => killBot(client));
+process.on(`SIGTERM`, () => killBot(client));

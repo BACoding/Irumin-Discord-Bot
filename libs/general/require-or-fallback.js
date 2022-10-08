@@ -1,6 +1,10 @@
-const { join } = require('path');
-module.exports = function requireOrFallback(...tryPaths) {
+const { join } = require(`path`);
+module.exports = function requireOrFallback (...tryPaths) {
   for (const path of tryPaths)
-    try { return require(join(process.cwd(),path)); } catch { }
+    try {
+      return require(join(process.cwd(), path));
+    } catch (error) {
+      console.log(error);
+    }
   return {};
-}
+};

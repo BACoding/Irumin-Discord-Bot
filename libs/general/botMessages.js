@@ -1,7 +1,6 @@
 //------------------------
 //IMPORT EMBED FUNCTION AND EMOJIS
-const { embedMessage } = require("./embedMessage");
-const { IRUMIN_EMOJIS } = require("../../config/config.json");
+const { embedMessage } = require(`./embedMessage`);
 
 //------------------------
 //EMBED MESSAGE PARAMETER IS COMPOSED OF (`TITLE`,`MESSAGE`)
@@ -10,43 +9,75 @@ const { IRUMIN_EMOJIS } = require("../../config/config.json");
 //[message.client.user.avatarURL()] GIVES YOU BOT AVATAR;
 
 module.exports = {
-  invalidCommand(commandName) {
-    return embedMessage(`INVALID COMMAND`, `Command \`${commandName}\` doesn't exist. Check !help for a list of the available commands.`)
+  invalidCommand (commandName) {
+    return embedMessage(
+      `INVALID COMMAND`,
+      `Command \`${commandName}\` doesn't exist. Check !help for a list of the available commands.`
+    );
   },
-  botPermissions() {
-    return embedMessage(`Hellooo?`, `Knock knock... I don't have enough permissions <('.'<)`)
+  botPermissions () {
+    return embedMessage(
+      `Hellooo?`,
+      `Knock knock... I don't have enough permissions <('.'<)`
+    );
   },
-  authorPermissions() {
-    return embedMessage(`Iyaaa`, `Yametekudastop, you can't do that ☆⌒(>。<)`)
+  authorPermissions () {
+    return embedMessage(`Iyaaa`, `Yametekudastop, you can't do that ☆⌒(>。<)`);
   },
-  userActivity(users) {
-    return embedMessage(`MIA`, `I don't see you anywhere <@${users}>`)
+  userActivity (users) {
+    return embedMessage(`MIA`, `I don't see you anywhere <@${users}>`);
   },
-  emptyCommand() {
-    return embedMessage(`ERR ORDERS?!`, `You didn't send anything`)
+  emptyCommand () {
+    return embedMessage(`ERR ORDERS?!`, `You didn't send anything`);
   },
-  botError() {
-    return embedMessage(`Something Something`, `Something wrong happened...`)
+  botError () {
+    return embedMessage(`Something Something`, `Something wrong happened...`);
   },
-  emptyQueue() {
-    return embedMessage(`WHERE DA SONG AT`, `THE QUEUE IS CURRENTLY EMPTY`)
+  emptyQueue () {
+    return embedMessage(`WHERE DA SONG AT`, `THE QUEUE IS CURRENTLY EMPTY`);
   },
-  invalidUrl(message) {
-    return embedMessage(`INVALID URL`, `THAT SHIT DOESN'T WORK`)
+  invalidUrl () {
+    return embedMessage(`INVALID URL`, `THAT SHIT DOESN'T WORK`);
   },
-  songAdded(user, songName, songLink) {
-    return embedMessage(`PLAYING SOON`, `**${songName}** was added to the queue!`, ``, ``, `${user.username}`, user.avatarURL());
+  songAdded (user, songName) {
+    return embedMessage(
+      `PLAYING SOON`,
+      `**${songName}** was added to the queue!`,
+      ``,
+      ``,
+      `${user.username}`,
+      user.avatarURL()
+    );
   },
-  nowPlaying(user, song) {
-    return embedMessage(`NOW PLAYING`, `**${song.title}**`, ``, ``, `${user.username}`, user.avatarURL());
+  nowPlaying (user, song) {
+    return embedMessage(
+      `NOW PLAYING`,
+      `**${song.title}**`,
+      ``,
+      ``,
+      `${user.username}`,
+      user.avatarURL()
+    );
   },
-  queueFinish(bot) {
-    return embedMessage(`SHOW'S OVER`, `You're all free now!`, ``, ``, `${bot.username}`, bot.avatarURL());
+  queueFinish (bot) {
+    return embedMessage(
+      `SHOW'S OVER`,
+      `You're all free now!`,
+      ``,
+      ``,
+      `${bot.username}`,
+      bot.avatarURL()
+    );
   },
-  messagesDeleted(message, msgCleaned, bulk) {
-    return embedMessage(`PURGE`, `something something just obliterated ${msgCleaned} message${msgCleaned === 1 ? '' : 's'} ${bulk ? 'all at once' : 'one by one'}`)
+  messagesDeleted (message, msgCleaned, bulk) {
+    return embedMessage(
+      `PURGE`,
+      `something something just obliterated ${msgCleaned} message${
+        msgCleaned === 1 ? `` : `s`
+      } ${bulk ? `all at once` : `one by one`}`
+    );
   },
-  goodbye() {
-    return embedMessage(`JA NE`, ':wave:')
-  }
-}
+  goodbye () {
+    return embedMessage(`JA NE`, `:wave:`);
+  },
+};
