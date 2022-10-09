@@ -33,7 +33,7 @@ function loadCommands (client) {
       console.error(`Failed loading command ${commandPath}`);
     }
   });
-  console.log(`Loaded commands:\n`, client.commands.keyArray());
+  console.log(`Loaded commands:\n`, client.commands.keys());
   return true;
 }
 

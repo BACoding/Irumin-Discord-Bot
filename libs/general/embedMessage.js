@@ -1,5 +1,5 @@
 const { MessageEmbed } = require(`discord.js`);
-const config = require(`../../config/config.json`);
+const config = require(`../../config/auth.json`);
 
 module.exports = {
   embedMessage (title, description, fields, image, footerText, footerImage) {

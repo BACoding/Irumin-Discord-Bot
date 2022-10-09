@@ -6,8 +6,7 @@ module.exports = {
   name: `resume`,
   aliases: [`re`],
   category: `music`,
-  description:
-    `I'll resume whatever you were listening. It's that simple! \n\n **COMMAND LIST:** \n \`!resume\``,
+  description: `I'll resume whatever you were listening. It's that simple! \n\n **COMMAND LIST:** \n \`!resume\``,
   async execute (message) {
     const queue = message.client.queue.get(message.guild.id);
     if (!queue)

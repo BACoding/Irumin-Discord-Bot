@@ -4,8 +4,7 @@ module.exports = {
   name: `remove`,
   aliases: [`rm`],
   category: `music`,
-  description:
-    `In case you don't like what's coming up next, remove an upcoming song from the queue! \n\n **COMMAND LIST:** \n \`!remove [song number]\``,
+  description: `In case you don't like what's coming up next, remove an upcoming song from the queue! \n\n **COMMAND LIST:** \n \`!remove [song number]\``,
   execute (message, args) {
     const queue = message.client.queue.get(message.guild.id);
 

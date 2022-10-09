@@ -6,8 +6,7 @@ module.exports = {
   name: `clear`,
   aliases: [`c`],
   category: `music`,
-  description:
-    `Clears everything in queue... That's it really \n\n **COMMAND LIST:** \n \`!clear\``,
+  description: `Clears everything in queue... That's it really \n\n **COMMAND LIST:** \n \`!clear\``,
   execute (message) {
     const queue = message.client.queue.get(message.guild.id);
 

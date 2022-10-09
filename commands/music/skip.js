@@ -5,8 +5,7 @@ module.exports = {
   name: `skip`,
   aliases: [`s`],
   category: `music`,
-  description:
-    `Thou hast the power of time skip. It's like it didn't even play! \n\n **COMMAND LIST:** \n \`!skip\``,
+  description: `Thou hast the power of time skip. It's like it didn't even play! \n\n **COMMAND LIST:** \n \`!skip\``,
   execute (message) {
     const queue = message.client.queue.get(message.guild.id);
     if (!queue)

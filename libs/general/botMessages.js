@@ -21,9 +21,6 @@ module.exports = {
       `Knock knock... I don't have enough permissions <('.'<)`
     );
   },
-  authorPermissions () {
-    return embedMessage(`Iyaaa`, `Yametekudastop, you can't do that ☆⌒(>。<)`);
-  },
   userActivity (users) {
     return embedMessage(`MIA`, `I don't see you anywhere <@${users}>`);
   },

@@ -55,8 +55,7 @@ module.exports = {
         helpCmd.value.push(`\`${PREFIX}${item.name}\``);
       });
     } else if (!command) {
-      description =
-        `Eh? I can't find that anywhere... Are you sure that exists or do you need \`!help\`?`;
+      description = `Eh? I can't find that anywhere... Are you sure that exists or do you need \`!help\`?`;
     } else {
       description = command.description;
       if (Array.isArray(command.aliases) && command.aliases.length)

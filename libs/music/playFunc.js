@@ -1,5 +1,11 @@
 const ytdlDiscord = require(`ytdl-core-discord`);
 const botMsg = require(`../../libs/general/botMessages`);
+const requireOrFallback = require(`../general/require-or-fallback`);
+
+const { ACTIVITY_QUOTE } = requireOrFallback(
+  `../../config/config.json`,
+  `../../config/config.example.json`
+);
 
 module.exports = {
   async play (song, message) {
@@ -8,7 +14,7 @@ module.exports = {
     if (!song) {
       //queue.channel.leave();
       message.client.queue.delete(message.guild.id);
-      queue.connection.client.user.setActivity(`with her hair`);
+      queue.connection.client.user.setActivity(`${ACTIVITY_QUOTE}`);
 
       return queue.textChannel.send(botMsg.queueFinish(message.client.user));
     }
