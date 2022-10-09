@@ -9,8 +9,6 @@
   "dependencies": {
     "@discordjs/opus": "*",
     "discord.js": "^14.x",
-    "simple-youtube-api": "*",
-    "soundcloud-downloader": "*",
     "ytdl-core": "^4.5.0",
     "simple-youtube-api": "*",
     "soundcloud-downloader": "*",
