@@ -2,3 +2,5 @@ node_modules
 /config/auth.json
 package-lock.json
 yarn.lock
+config/customAlias.json
+config/config.json

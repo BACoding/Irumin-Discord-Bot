@@ -3,17 +3,26 @@
   "version": "0.8",
   "description": "",
   "main": "main.js",
+  "engines": {
+    "node": "^16.9.x"
+  },
   "dependencies": {
     "@discordjs/opus": "*",
     "discord.js": "^14.x",
-    "node": "^16.9.x",
     "simple-youtube-api": "*",
     "soundcloud-downloader": "*",
-    "youtube-dl-exec": "*",
     "ytdl-core": "^4.5.0",
+    "simple-youtube-api": "*",
+    "soundcloud-downloader": "*",
     "ytdl-core-discord": "*"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "editorconfig": "*",
+    "eslint": "^8.25.0"
+  },
+  "scripts": {
+    "start": "node main.js"
+  },
   "author": "Bruno Americo",
   "license": "ISC"
 }

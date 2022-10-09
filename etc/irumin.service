@@ -1,0 +1,9 @@
+[Unit]
+Description=Irumin Discord Bot
+
+[Service]
+WorkingDirectory=/home/ricardo/builds/Irumin-Discord-Bot
+ExecStart=npm start
+
+[Install]
+WantedBy=multi-user.target
